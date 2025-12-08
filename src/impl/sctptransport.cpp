@@ -107,8 +107,8 @@ void SctpTransport::SetSettings(const SctpSettings &s) {
 	// The send and receive window size of usrsctp is 256KiB, which is too small for realistic RTTs,
 	// therefore we increase it to 1MiB by default for better performance.
 	// See https://bugzilla.mozilla.org/show_bug.cgi?id=1051685
-	usrsctp_sysctl_set_sctp_recvspace(to_uint32(s.recvBufferSize.value_or(1024 * 1024)));
-	usrsctp_sysctl_set_sctp_sendspace(to_uint32(s.sendBufferSize.value_or(1024 * 1024)));
+	usrsctp_sysctl_set_sctp_recvspace(to_uint32(s.recvBufferSize.value_or(4 * 1024 * 1024)));
+	usrsctp_sysctl_set_sctp_sendspace(to_uint32(s.sendBufferSize.value_or(4 * 1024 * 1024)));
 
 	// Increase maximum chunks number on queue to 10K by default
 	usrsctp_sysctl_set_sctp_max_chunks_on_queue(to_uint32(s.maxChunksOnQueue.value_or(10 * 1024)));
@@ -121,7 +121,7 @@ void SctpTransport::SetSettings(const SctpSettings &s) {
 
 	// Use standard SCTP congestion control (RFC 4960) by default
 	// See https://github.com/paullouisageneau/libdatachannel/issues/354
-	usrsctp_sysctl_set_sctp_default_cc_module(to_uint32(s.congestionControlModule.value_or(0)));
+	usrsctp_sysctl_set_sctp_default_cc_module(to_uint32(s.congestionControlModule.value_or(4)));
 
 	// Reduce SACK delay to 20ms by default (the recommended default value from RFC 4960 is 200ms)
 	usrsctp_sysctl_set_sctp_delayed_sack_time_default(
