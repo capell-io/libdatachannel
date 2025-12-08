@@ -142,6 +142,9 @@ void PeerConnection::setLocalDescription(Description::Type type, LocalDescriptio
 	if (init.iceUfrag && init.icePwd) {
 		PLOG_DEBUG << "Setting custom ICE attributes, ufrag=\"" << *init.iceUfrag << "\", pwd=\"" << *init.icePwd << "\"";
 		iceTransport->setIceAttributes(*init.iceUfrag, *init.icePwd);
+	} else if (config()->iceUfrag && config()->icePwd) {
+		PLOG_DEBUG << "Setting custom ICE attributes, ufrag=\"" << *config()->iceUfrag << "\", pwd=\"" << *config()->icePwd << "\"";
+		iceTransport->setIceAttributes(*config()->iceUfrag, *config()->icePwd);
 	}
 
 	Description local = iceTransport->getLocalDescription(type);
