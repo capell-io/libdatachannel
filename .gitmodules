@@ -6,6 +6,7 @@
 	path = deps/usrsctp
 	url = https://github.com/capell-io/usrsctp.git
 	shallow = true
+	branch = master
 [submodule "deps/libjuice"]
 	path = deps/libjuice
 	url = https://github.com/paullouisageneau/libjuice.git
