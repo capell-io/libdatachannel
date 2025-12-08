@@ -1,20 +1,25 @@
 [submodule "deps/plog"]
 	path = deps/plog
 	url = https://github.com/SergiusTheBest/plog.git
+	branch = master
 	shallow = true
 [submodule "deps/usrsctp"]
 	path = deps/usrsctp
 	url = https://github.com/capell-io/usrsctp.git
-	shallow = true
 	branch = master
+	shallow = true
 [submodule "deps/libjuice"]
 	path = deps/libjuice
+	branch = master
 	url = https://github.com/paullouisageneau/libjuice.git
 [submodule "deps/json"]
 	path = deps/json
 	url = https://github.com/nlohmann/json.git
+	branch = develop
 	shallow = true
+
 [submodule "deps/libsrtp"]
 	path = deps/libsrtp
 	url = https://github.com/cisco/libsrtp.git
+	branch = master
 	shallow = true
