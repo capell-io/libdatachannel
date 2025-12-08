@@ -85,6 +85,10 @@ private:
 SctpTransport::InstancesSet* SctpTransport::Instances = nullptr;
 
 void SctpTransport::Init() {
+	static std::atomic<bool> initialized{false};
+	if (initialized.exchange(true)){
+		return;
+	}
 	usrsctp_init(0, SctpTransport::WriteCallback, SctpTransport::DebugCallback);
 	usrsctp_sysctl_set_sctp_pr_enable(1);  // Enable Partial Reliability Extension (RFC 3758)
 	usrsctp_sysctl_set_sctp_ecn_enable(0); // Disable Explicit Congestion Notification
@@ -99,6 +103,7 @@ void SctpTransport::Init() {
 }
 
 void SctpTransport::SetSettings(const SctpSettings &s) {
+	Init();
 	// The send and receive window size of usrsctp is 256KiB, which is too small for realistic RTTs,
 	// therefore we increase it to 1MiB by default for better performance.
 	// See https://bugzilla.mozilla.org/show_bug.cgi?id=1051685
